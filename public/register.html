@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Cadastro</title></head>
+<body>
+  <h2>Cadastro</h2>
+  <form id="regForm">
+    <input id="name" placeholder="Nome" required><br>
+    <input id="cpf" placeholder="CPF" required><br>
+    <label>Role:
+      <select id="role">
+        <option value="client">Cliente</option>
+        <option value="admin">Administrador</option>
+      </select>
+    </label><br>
+    <button type="submit">Cadastrar</button>
+    <button type="button" id="back">Voltar</button>
+  </form>
+  <script src="js/auth.js"></script>
+</body>
+</html>
