@@ -1,4 +1,3 @@
-```markdown
 # Supermercado MVC
 
 Software gerenciador de supermercado utilizando o padrão MVC com Node.js, Express e SQLite. Projeto da disciplina Práticas em Desenvolvimento de Sistemas II, IFSC - Campus Gaspar.
@@ -58,8 +57,7 @@ supermercado-mvc/
 1. **Pré-requisitos**: Node.js v16+, Git (opcional)
 2. **Clonar repositório**:
    ```bash
-   git clone https://github.com/SEU_USUARIO/supermercado-mvc.git
-   cd supermercado-mvc
+   git clone https://github.com/kiyanamiiii/marketplace-mvc.git
    ```
 3. **Instalar dependências**:
    ```bash
@@ -69,8 +67,6 @@ supermercado-mvc/
    ```bash
    node server.js
    ```
-   Ou com nodemon: `npx nodemon server.js`
-
 Acesse: [http://localhost:3000](http://localhost:3000)
 
 ## Funcionamento
@@ -139,34 +135,4 @@ curl -X POST http://localhost:3000/api/products/checkout \
 - Sessão via `localStorage`
 - Logout limpa `localStorage` e redireciona para login
 
-## Scripts Úteis
-
-**Resetar banco**:
-- Deletar `database.sqlite` e reiniciar servidor
-
-**Nodemon**:
-```bash
-npm install --save-dev nodemon
-npx nodemon server.js
-```
-
-## Deploy
-
-Plataformas sugeridas: Render, Railway, Vercel, Heroku
-
-**Render**:
-1. Subir repositório público no GitHub
-2. Criar Web Service no Render
-3. Configurar:
-   - Build: `npm install`
-   - Start: `node server.js`
-4. Deploy
-
-## Licença
-
-MIT License. Livre para uso educacional.
-
-## Créditos
-
 Desenvolvido para Práticas em Desenvolvimento de Sistemas II, IFSC - Campus Gaspar.
-```
