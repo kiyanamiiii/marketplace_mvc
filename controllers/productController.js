@@ -1,6 +1,5 @@
 const Supermercado = require('../models/Supermercado');
 
-// Helper: checar se é admin (pode ser reforçado por sessão/JWT)
 function requireAdmin(req, res) {
   const role = req.headers['x-role'] || (req.body && req.body.user && req.body.user.role);
   if (role !== 'admin') {
@@ -62,11 +61,9 @@ exports.checkout = (req, res) => {
   if (!user || !items) return res.status(400).json({ error: 'Dados incompletos' });
   if (user.role === 'admin') return res.status(403).json({ error: 'Administrador não pode comprar' });
 
-  // items: [{id, qty, price, name}]
   const simpleItems = items.map(it => ({ id: it.id, qty: it.qty }));
   Supermercado.processarCompra(simpleItems, err => {
     if (err) return res.status(500).json({ error: 'Erro ao processar compra' });
-    // sugestão: registrar venda em tabela 'sales' (não implementado aqui)
     res.json({ success: true });
   });
 };

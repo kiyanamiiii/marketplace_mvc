@@ -1,4 +1,3 @@
-// auth.js - usado por index.html e register.html
 const API = '/api/auth';
 
 if (document.getElementById('loginForm')) {

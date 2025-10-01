@@ -1,7 +1,6 @@
 const db = require('../db');
 
 
-// Registro simples
 exports.register = (req, res) => {
 const { name, cpf, role } = req.body;
 if (!name || !cpf || !role) return res.status(400).json({ error: 'Dados incompletos' });
