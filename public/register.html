@@ -1,20 +1,42 @@
 <!doctype html>
 <html>
-<head><meta charset="utf-8"><title>Cadastro</title></head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Cadastro — Supermercado</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-  <h2>Cadastro</h2>
-  <form id="regForm">
-    <input id="name" placeholder="Nome" required><br>
-    <input id="cpf" placeholder="CPF" required><br>
-    <label>Role:
-      <select id="role">
-        <option value="client">Cliente</option>
-        <option value="admin">Administrador</option>
-      </select>
-    </label><br>
-    <button type="submit">Cadastrar</button>
-    <button type="button" id="back">Voltar</button>
-  </form>
+  <div class="container">
+    <div class="card" style="max-width:540px;margin:auto;">
+      <div class="header">
+        <div>
+          <div class="title">Cadastro de usuário</div>
+          <div class="subtitle">Crie uma conta de administrador ou cliente</div>
+        </div>
+      </div>
+
+      <form id="regForm" class="form" autocomplete="off">
+        <label class="label">Nome</label>
+        <input id="name" class="input" placeholder="Nome completo" required>
+
+        <label class="label">CPF</label>
+        <input id="cpf" class="input" placeholder="Somente números" required>
+
+        <label class="label">Perfil</label>
+        <select id="role" class="select">
+          <option value="client">Cliente</option>
+          <option value="admin">Administrador</option>
+        </select>
+
+        <div class="row" style="margin-top:8px;">
+          <button type="submit" class="btn btn-primary">Cadastrar</button>
+          <button type="button" id="back" class="btn btn-ghost">Voltar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="js/auth.js"></script>
 </body>
 </html>

@@ -1,17 +1,43 @@
 <!doctype html>
 <html>
-<head><meta charset="utf-8"><title>Loja</title></head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Loja — Supermercado</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-  <h2>Loja</h2>
-  <button id="logout">Deslogar</button>
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <div>
+          <div class="title">Loja</div>
+          <div class="subtitle">Escolha os produtos e finalize a compra</div>
+        </div>
+        <div class="row">
+          <button id="logout" class="btn btn-ghost">Deslogar</button>
+        </div>
+      </div>
 
-  <div id="products"></div>
-  <hr>
-  <h3>Carrinho</h3>
-  <div id="cart"></div>
-  <div>Total: R$ <span id="total">0.00</span></div>
-  <button id="checkout">Emitir Nota / Pagar</button>
-  <div id="invoice" style="display:none"></div>
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:16px;margin-top:12px;">
+        <div>
+          <div class="products-grid" id="products"></div>
+        </div>
+
+        <aside>
+          <div class="card" style="padding:12px;">
+            <div style="font-weight:700">Carrinho</div>
+            <div id="cart" class="cart" style="margin-top:8px;"></div>
+            <div style="margin-top:12px;" class="kv">Total: R$ <span id="total">0.00</span></div>
+            <div style="margin-top:10px;">
+              <button id="checkout" class="btn btn-primary" style="width:100%;">Emitir Nota / Pagar</button>
+            </div>
+          </div>
+          <div id="invoice" class="invoice" style="display:none"></div>
+        </aside>
+      </div>
+    </div>
+  </div>
 
   <script src="js/shop.js"></script>
 </body>

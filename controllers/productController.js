@@ -1,3 +1,4 @@
+// controllers/productController.js
 const Supermercado = require('../models/Supermercado');
 
 function requireAdmin(req, res) {
@@ -31,7 +32,7 @@ exports.create = (req, res) => {
   if (!name) return res.status(400).json({ error: 'Nome exigido' });
   const prod = { name, description, price: Number(price), stock: Number(stock) };
   Supermercado.criar(prod, (err, p) => {
-    if (err) return res.status(500).json({ error: 'Erro ao criar' });
+    if (err) return res.status(500).json({ error: err.message || 'Erro ao criar' });
     res.json(p);
   });
 };
@@ -63,7 +64,7 @@ exports.checkout = (req, res) => {
 
   const simpleItems = items.map(it => ({ id: it.id, qty: it.qty }));
   Supermercado.processarCompra(simpleItems, err => {
-    if (err) return res.status(500).json({ error: 'Erro ao processar compra' });
+    if (err) return res.status(500).json({ error: err.message || 'Erro ao processar compra' });
     res.json({ success: true });
   });
 };

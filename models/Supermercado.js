@@ -1,20 +1,33 @@
+// models/Supermercado.js
 const db = require('../db');
-const Produto = require('./Produto');
 
 class Supermercado {
   static listar(callback) {
-    db.all('SELECT * FROM products', [], (err, rows) => {
+    db.all('SELECT id, name, description, price, stock FROM products', [], (err, rows) => {
       if (err) return callback(err);
-      const produtos = rows.map(r => new Produto(r));
+      // mapear para objetos simples (não instâncias com _name)
+      const produtos = rows.map(r => ({
+        id: r.id,
+        name: r.name,
+        description: r.description,
+        price: r.price,
+        stock: r.stock
+      }));
       callback(null, produtos);
     });
   }
 
   static buscarPorId(id, callback) {
-    db.get('SELECT * FROM products WHERE id = ?', [id], (err, row) => {
+    db.get('SELECT id, name, description, price, stock FROM products WHERE id = ?', [id], (err, row) => {
       if (err) return callback(err);
       if (!row) return callback(null, null);
-      callback(null, new Produto(row));
+      callback(null, {
+        id: row.id,
+        name: row.name,
+        description: row.description,
+        price: row.price,
+        stock: row.stock
+      });
     });
   }
 
@@ -24,8 +37,13 @@ class Supermercado {
       [prod.name, prod.description, prod.price, prod.stock],
       function (err) {
         if (err) return callback(err);
-        prod.id = this.lastID;
-        callback(null, prod);
+        callback(null, {
+          id: this.lastID,
+          name: prod.name,
+          description: prod.description,
+          price: prod.price,
+          stock: prod.stock
+        });
       }
     );
   }
@@ -41,20 +59,18 @@ class Supermercado {
     );
   }
 
+  // retorna erro se não removido (ajuda a detectar delete sem efeito)
   static remover(id, callback) {
     db.run('DELETE FROM products WHERE id=?', [id], function (err) {
       if (err) return callback(err);
+      if (this.changes === 0) return callback(new Error('Nenhum produto removido (id não encontrado)'));
       callback(null);
     });
   }
 
-  // atualiza estoque: recebe [{id, qty}, ...] e decrementa se houver estoque suficiente
+  // processarCompra permanece igual (verifica estoque e atualiza)
   static processarCompra(items, callback) {
     db.serialize(() => {
-      const checks = [];
-      const updates = [];
-
-      // primeiro checar estoque suficiente para todos os itens
       const checkNext = (i) => {
         if (i >= items.length) return doUpdates();
         const it = items[i];
@@ -65,8 +81,6 @@ class Supermercado {
           checkNext(i + 1);
         });
       };
-
-      // se tudo OK, aplicar updates
       const doUpdates = () => {
         const stmt = db.prepare('UPDATE products SET stock = stock - ? WHERE id = ?');
         for (const it of items) stmt.run([it.qty, it.id]);
@@ -75,7 +89,6 @@ class Supermercado {
           callback(null);
         });
       };
-
       checkNext(0);
     });
   }

@@ -1,3 +1,4 @@
+// models/Produto.js
 class Produto {
   constructor({ id = null, name, description = '', price = 0.0, stock = 0 } = {}) {
     this._id = id;
