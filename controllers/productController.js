@@ -1,10 +1,13 @@
 // controllers/productController.js
-const Supermercado = require('../models/Supermercado');
+const Supermercado = require("../models/Supermercado");
 
 function requireAdmin(req, res) {
-  const role = req.headers['x-role'] || (req.body && req.body.user && req.body.user.role);
-  if (role !== 'admin') {
-    res.status(403).json({ error: 'Ação permitida somente para administradores' });
+  const role =
+    req.headers["x-role"] || (req.body && req.body.user && req.body.user.role);
+  if (role !== "admin") {
+    res
+      .status(403)
+      .json({ error: "Ação permitida somente para administradores" });
     return false;
   }
   return true;
@@ -12,7 +15,7 @@ function requireAdmin(req, res) {
 
 exports.list = (req, res) => {
   Supermercado.listar((err, produtos) => {
-    if (err) return res.status(500).json({ error: 'Erro ao listar produtos' });
+    if (err) return res.status(500).json({ error: "Erro ao listar produtos" });
     res.json(produtos);
   });
 };
@@ -20,19 +23,26 @@ exports.list = (req, res) => {
 exports.get = (req, res) => {
   const { id } = req.params;
   Supermercado.buscarPorId(id, (err, produto) => {
-    if (err) return res.status(500).json({ error: 'Erro no DB' });
-    if (!produto) return res.status(404).json({ error: 'Produto não encontrado' });
+    if (err) return res.status(500).json({ error: "Erro no DB" });
+    if (!produto)
+      return res.status(404).json({ error: "Produto não encontrado" });
     res.json(produto);
   });
 };
 
 exports.create = (req, res) => {
   if (!requireAdmin(req, res)) return;
-  const { name, description = '', price = 0, stock = 0 } = req.body;
-  if (!name) return res.status(400).json({ error: 'Nome exigido' });
-  const prod = { name, description, price: Number(price), stock: Number(stock) };
+  const { name, description = "", price = 0, stock = 0 } = req.body;
+  if (!name) return res.status(400).json({ error: "Nome exigido" });
+  const prod = {
+    name,
+    description,
+    price: Number(price),
+    stock: Number(stock),
+  };
   Supermercado.criar(prod, (err, p) => {
-    if (err) return res.status(500).json({ error: err.message || 'Erro ao criar' });
+    if (err)
+      return res.status(500).json({ error: err.message || "Erro ao criar" });
     res.json(p);
   });
 };
@@ -40,10 +50,16 @@ exports.create = (req, res) => {
 exports.update = (req, res) => {
   if (!requireAdmin(req, res)) return;
   const { id } = req.params;
-  const { name, description = '', price = 0, stock = 0 } = req.body;
-  const prod = { id: Number(id), name, description, price: Number(price), stock: Number(stock) };
-  Supermercado.atualizar(prod, err => {
-    if (err) return res.status(500).json({ error: 'Erro ao atualizar' });
+  const { name, description = "", price = 0, stock = 0 } = req.body;
+  const prod = {
+    id: Number(id),
+    name,
+    description,
+    price: Number(price),
+    stock: Number(stock),
+  };
+  Supermercado.atualizar(prod, (err) => {
+    if (err) return res.status(500).json({ error: "Erro ao atualizar" });
     res.json({ success: true });
   });
 };
@@ -51,20 +67,25 @@ exports.update = (req, res) => {
 exports.remove = (req, res) => {
   if (!requireAdmin(req, res)) return;
   const { id } = req.params;
-  Supermercado.remover(id, err => {
-    if (err) return res.status(500).json({ error: 'Erro ao remover' });
+  Supermercado.remover(id, (err) => {
+    if (err) return res.status(500).json({ error: "Erro ao remover" });
     res.json({ success: true });
   });
 };
 
 exports.checkout = (req, res) => {
   const { user, items } = req.body; // user: {name, cpf, role}
-  if (!user || !items) return res.status(400).json({ error: 'Dados incompletos' });
-  if (user.role === 'admin') return res.status(403).json({ error: 'Administrador não pode comprar' });
+  if (!user || !items)
+    return res.status(400).json({ error: "Dados incompletos" });
+  if (user.role === "admin")
+    return res.status(403).json({ error: "Administrador não pode comprar" });
 
-  const simpleItems = items.map(it => ({ id: it.id, qty: it.qty }));
-  Supermercado.processarCompra(simpleItems, err => {
-    if (err) return res.status(500).json({ error: err.message || 'Erro ao processar compra' });
+  const simpleItems = items.map((it) => ({ id: it.id, qty: it.qty }));
+  Supermercado.processarCompra(simpleItems, (err) => {
+    if (err)
+      return res
+        .status(500)
+        .json({ error: err.message || "Erro ao processar compra" });
     res.json({ success: true });
   });
 };

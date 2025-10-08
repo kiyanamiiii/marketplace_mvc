@@ -67,15 +67,17 @@ supermercado-mvc/
    ```bash
    node server.js
    ```
-Acesse: [http://localhost:3000](http://localhost:3000)
+   Acesse: [http://localhost:3000](http://localhost:3000)
 
 ## Funcionamento
 
 ### Usuários
+
 - **Administrador**: Gerencia produtos
 - **Cliente**: Compra produtos
 
 ### Telas
+
 - `/`: Login
 - `/register.html`: Cadastro
 - `/admin_products.html`: CRUD produtos (admin)
@@ -84,24 +86,27 @@ Acesse: [http://localhost:3000](http://localhost:3000)
 ## Rotas API
 
 ### Auth
+
 | Método | Rota                 | Descrição           |
-|--------|---------------------|---------------------|
-| POST   | `/api/auth/register`| Cadastro de usuário |
-| POST   | `/api/auth/login`   | Login (nome + CPF)  |
+| ------ | -------------------- | ------------------- |
+| POST   | `/api/auth/register` | Cadastro de usuário |
+| POST   | `/api/auth/login`    | Login (nome + CPF)  |
 
 ### Products
-| Método | Rota                    | Descrição                     |
-|--------|------------------------|-------------------------------|
-| GET    | `/api/products`        | Lista produtos                |
-| GET    | `/api/products/:id`    | Produto por ID                |
-| POST   | `/api/products`        | Cria produto (admin)          |
-| PUT    | `/api/products/:id`    | Atualiza produto (admin)      |
-| DELETE | `/api/products/:id`    | Remove produto (admin)        |
-| POST   | `/api/products/checkout`| Finaliza compra/atualiza estoque |
+
+| Método | Rota                     | Descrição                        |
+| ------ | ------------------------ | -------------------------------- |
+| GET    | `/api/products`          | Lista produtos                   |
+| GET    | `/api/products/:id`      | Produto por ID                   |
+| POST   | `/api/products`          | Cria produto (admin)             |
+| PUT    | `/api/products/:id`      | Atualiza produto (admin)         |
+| DELETE | `/api/products/:id`      | Remove produto (admin)           |
+| POST   | `/api/products/checkout` | Finaliza compra/atualiza estoque |
 
 Admin endpoints requerem header: `x-role: admin`
 
 ## MVC
+
 - **Model**: `Produto.js`, `Supermercado.js` (acesso SQLite)
 - **View**: HTML/JS em `public/`
 - **Controller**: `authController.js`, `productController.js`
@@ -109,6 +114,7 @@ Admin endpoints requerem header: `x-role: admin`
 ## Testes via cURL
 
 **Cadastrar admin**:
+
 ```bash
 curl -X POST http://localhost:3000/api/auth/register \
 -H "Content-Type: application/json" \
@@ -116,6 +122,7 @@ curl -X POST http://localhost:3000/api/auth/register \
 ```
 
 **Cadastrar produto**:
+
 ```bash
 curl -X POST http://localhost:3000/api/products \
 -H "Content-Type: application/json" \
@@ -124,6 +131,7 @@ curl -X POST http://localhost:3000/api/products \
 ```
 
 **Comprar (cliente)**:
+
 ```bash
 curl -X POST http://localhost:3000/api/products/checkout \
 -H "Content-Type: application/json" \

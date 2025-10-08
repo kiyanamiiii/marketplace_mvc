@@ -1,44 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Produtos (Admin) — Supermercado</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <div class="container">
-    <div class="card">
-      <div class="header">
-        <div>
-          <div class="title">Produtos (Admin)</div>
-          <div class="subtitle">Gerencie o catálogo</div>
-        </div>
-        <div class="row">
-          <button id="logout" class="btn btn-ghost">Deslogar</button>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:16px;flex-wrap:wrap;">
-        <div style="flex:1;min-width:260px;">
-          <div style="font-weight:700;margin-bottom:8px">Novo Produto</div>
-          <input id="p_name" class="input" placeholder="nome">
-          <input id="p_desc" class="input" placeholder="descrição" style="margin-top:6px;">
-          <input id="p_price" class="input" placeholder="preço" style="margin-top:6px;">
-          <input id="p_stock" class="input" placeholder="estoque" style="margin-top:6px;">
-          <div style="margin-top:8px;">
-            <button id="create" class="btn btn-primary">Criar</button>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Produtos (Admin) — Supermercado</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="header">
+          <div>
+            <div class="title">Produtos (Admin)</div>
+            <div class="subtitle">Gerencie o catálogo</div>
+          </div>
+          <div class="row">
+            <button id="logout" class="btn btn-ghost">Deslogar</button>
           </div>
         </div>
 
-        <div style="flex:2;min-width:300px;">
-          <div style="font-weight:700;margin-bottom:8px">Lista de Produtos</div>
-          <div id="list" class="product-list"></div>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap">
+          <div style="flex: 1; min-width: 260px">
+            <div style="font-weight: 700; margin-bottom: 8px">Novo Produto</div>
+            <input id="p_name" class="input" placeholder="nome" />
+            <input
+              id="p_desc"
+              class="input"
+              placeholder="descrição"
+              style="margin-top: 6px"
+            />
+            <input
+              id="p_price"
+              class="input"
+              placeholder="preço"
+              style="margin-top: 6px"
+            />
+            <input
+              id="p_stock"
+              class="input"
+              placeholder="estoque"
+              style="margin-top: 6px"
+            />
+            <div style="margin-top: 8px">
+              <button id="create" class="btn btn-primary">Criar</button>
+            </div>
+          </div>
+
+          <div style="flex: 2; min-width: 300px">
+            <div style="font-weight: 700; margin-bottom: 8px">
+              Lista de Produtos
+            </div>
+            <div id="list" class="product-list"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="js/admin_products.js"></script>
-</body>
+    <script src="js/admin_products.js"></script>
+  </body>
 </html>

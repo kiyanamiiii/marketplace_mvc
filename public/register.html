@@ -1,42 +1,82 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Cadastro — Supermercado</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <div class="container">
-    <div class="card" style="max-width:540px;margin:auto;">
-      <div class="header">
-        <div>
-          <div class="title">Cadastro de usuário</div>
-          <div class="subtitle">Crie uma conta de administrador ou cliente</div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cadastro — Supermercado</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card" style="max-width: 540px; margin: auto">
+        <div class="header">
+          <div>
+            <div class="title">Cadastro de usuário</div>
+            <div class="subtitle">
+              Crie uma conta de administrador ou cliente
+            </div>
+          </div>
         </div>
+
+        <form id="regForm" class="form" autocomplete="off">
+          <label class="label">Nome</label>
+          <input id="name" class="input" placeholder="Nome completo" required />
+
+          <label class="label">CPF</label>
+          <input
+            id="cpf"
+            class="input"
+            placeholder="Somente números"
+            required
+          />
+
+          <label class="label">Perfil</label>
+          <select id="role" class="select">
+            <option value="client">Cliente</option>
+            <option value="admin">Administrador</option>
+          </select>
+
+          <div class="row" style="margin-top: 8px">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="button" id="back" class="btn btn-ghost">
+              Voltar
+            </button>
+          </div>
+        </form>
       </div>
-
-      <form id="regForm" class="form" autocomplete="off">
-        <label class="label">Nome</label>
-        <input id="name" class="input" placeholder="Nome completo" required>
-
-        <label class="label">CPF</label>
-        <input id="cpf" class="input" placeholder="Somente números" required>
-
-        <label class="label">Perfil</label>
-        <select id="role" class="select">
-          <option value="client">Cliente</option>
-          <option value="admin">Administrador</option>
-        </select>
-
-        <div class="row" style="margin-top:8px;">
-          <button type="submit" class="btn btn-primary">Cadastrar</button>
-          <button type="button" id="back" class="btn btn-ghost">Voltar</button>
-        </div>
-      </form>
     </div>
-  </div>
 
-  <script src="js/auth.js"></script>
-</body>
+    <script src="/utils.js"></script>
+    <script>
+      const form = document.querySelector("form");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const cpf = document.getElementById("cpf").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (
+          !requireFields({ name, cpf, password }, ["name", "cpf", "password"])
+        )
+          return;
+        if (!isValidCPF(cpf)) {
+          showErrorMessage("CPF inválido");
+          return;
+        }
+
+        try {
+          await fetchJSON("/api/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, cpf, password }),
+          });
+          showSuccessMessage("Cadastro realizado com sucesso!");
+          window.location.href = "/index.html";
+        } catch (err) {}
+      });
+    </script>
+    <script src="js/auth.js"></script>
+  </body>
 </html>
