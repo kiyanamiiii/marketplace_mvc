@@ -57,3 +57,46 @@ function requireFields(obj, fields) {
   }
   return true;
 }
+
+// ===== Validação de CPF (simplificada) =====
+function isValidCPF(cpf) {
+  cpf = cpf.replace(/\D/g, "");
+  return cpf.length === 11;
+}
+
+function validateCPF(cpf) {
+  cpf = cpf.replace(/\D/g, "");
+  return cpf.length === 11;
+}
+
+// ===== Exibe mensagens de erro estilizadas =====
+function showErrorMessage(msg) {
+  createAlert(msg, "error");
+}
+
+function showSuccessMessage(msg) {
+  createAlert(msg, "success");
+}
+
+// ===== Cria o alerta visual =====
+function createAlert(msg, type) {
+  const el = document.createElement("div");
+  el.className = `alert ${type}`;
+  el.innerText = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 4000);
+}
+
+// ===== Função para validar CPF no form de registro =====
+function attachCPFValidation(inputSelector) {
+  const cpfInput = document.querySelector(inputSelector);
+  if (!cpfInput) return;
+
+  cpfInput.addEventListener("blur", () => {
+    const value = cpfInput.value.trim();
+    if (!validateCPF(value)) {
+      showErrorMessage("CPF inválido. Verifique os números e tente novamente.");
+      cpfInput.focus();
+    }
+  });
+}

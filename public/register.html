@@ -46,37 +46,42 @@
       </div>
     </div>
 
-    <script src="/utils.js"></script>
     <script>
-      const form = document.querySelector("form");
+      function attachCPFValidation(inputSelector) {
+        const cpfInput = document.querySelector(inputSelector);
+        const submitBtn = document.querySelector('button[type="submit"]');
+        if (!cpfInput || !submitBtn) return;
 
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+        const validateAndToggle = () => {
+          const value = cpfInput.value.trim();
+          if (validateCPF(value)) {
+            submitBtn.disabled = false;
+          } else {
+            submitBtn.disabled = true;
+          }
+        };
 
-        const name = document.getElementById("name").value.trim();
-        const cpf = document.getElementById("cpf").value.trim();
-        const password = document.getElementById("password").value.trim();
+        // Valida ao digitar
+        cpfInput.addEventListener("input", validateAndToggle);
 
-        if (
-          !requireFields({ name, cpf, password }, ["name", "cpf", "password"])
-        )
-          return;
-        if (!isValidCPF(cpf)) {
-          showErrorMessage("CPF inválido");
-          return;
-        }
+        // Valida ao perder o foco
+        cpfInput.addEventListener("blur", () => {
+          validateAndToggle();
+          if (!validateCPF(cpfInput.value.trim())) {
+            showErrorMessage(
+              "CPF inválido. Verifique os números e tente novamente."
+            );
+          }
+        });
 
-        try {
-          await fetchJSON("/api/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, cpf, password }),
-          });
-          showSuccessMessage("Cadastro realizado com sucesso!");
-          window.location.href = "/index.html";
-        } catch (err) {}
-      });
+        // Inicialmente desativa se o campo estiver vazio ou inválido
+        validateAndToggle();
+      }
+
+      // Chamada
+      attachCPFValidation("#cpf");
     </script>
+    <script src="js/utils.js"></script>
     <script src="js/auth.js"></script>
   </body>
 </html>
