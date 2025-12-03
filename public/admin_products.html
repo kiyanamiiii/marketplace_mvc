@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Produtos (Admin) — Supermercado</title>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=5"
+    />
+    <meta name="theme-color" content="#07101a" />
+    <title>Produtos (Admin) – Supermercado</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -15,39 +19,46 @@
             <div class="subtitle">Gerencie o catálogo</div>
           </div>
           <div class="row">
-            <button id="logout" class="btn btn-ghost">Deslogar</button>
+            <button id="logout" class="btn btn-danger">Deslogar</button>
           </div>
         </div>
 
-        <div style="display: flex; gap: 16px; flex-wrap: wrap">
-          <div style="flex: 1; min-width: 260px">
-            <div style="font-weight: 700; margin-bottom: 8px">Novo Produto</div>
-            <input id="p_name" class="input" placeholder="nome" />
+        <div class="admin-layout">
+          <div class="admin-form">
+            <div style="font-weight: 700; margin-bottom: 12px; font-size: 16px">
+              Novo Produto
+            </div>
+            <input id="p_name" class="input" placeholder="Nome" />
             <input
               id="p_desc"
               class="input"
-              placeholder="descrição"
-              style="margin-top: 6px"
+              placeholder="Descrição"
+              style="margin-top: 8px"
             />
             <input
               id="p_price"
               class="input"
-              placeholder="preço"
-              style="margin-top: 6px"
+              type="number"
+              step="0.01"
+              placeholder="Preço"
+              style="margin-top: 8px"
             />
             <input
               id="p_stock"
               class="input"
-              placeholder="estoque"
-              style="margin-top: 6px"
+              type="number"
+              placeholder="Estoque"
+              style="margin-top: 8px"
             />
-            <div style="margin-top: 8px">
-              <button id="create" class="btn btn-primary">Criar</button>
+            <div style="margin-top: 12px">
+              <button id="create" class="btn btn-primary" style="width: 100%">
+                Criar Produto
+              </button>
             </div>
           </div>
 
-          <div style="flex: 2; min-width: 300px">
-            <div style="font-weight: 700; margin-bottom: 8px">
+          <div class="admin-list">
+            <div style="font-weight: 700; margin-bottom: 12px; font-size: 16px">
               Lista de Produtos
             </div>
             <div id="list" class="product-list"></div>
